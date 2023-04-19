@@ -1,0 +1,13 @@
+# Get gpu version if you have a gpu available, else cpu will just do fine.
+torch
+torchvision
+
+Pillow
+open-cv
+matplotlib
+seaborn
+numpy
+pandas
+tqdm
+
+-e.
