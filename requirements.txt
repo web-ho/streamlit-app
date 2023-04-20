@@ -1,13 +1,11 @@
 # Get gpu version if you have a gpu available, else cpu will just do fine.
-torch
-torchvision
+torch==2.0.0
+torchvision==0.15.1+cpu
 
-Pillow
-open-cv
-matplotlib
-seaborn
-numpy
-pandas
-tqdm
+opencv-python==4.7.0
+seaborn==0.12.2
+numpy==1.23.5
+pandas==1.5.2
+streamlit==1.21.0
 
 -e.
