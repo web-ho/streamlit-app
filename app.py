@@ -14,7 +14,7 @@ def load_model(model_path):
     model = create_model(num_classes=25)
 
     criterion = torch.nn.CrossEntropyLoss()
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.0001)
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.00001)
 
     check = torch.load(model_path)
     model.load_state_dict(check['model_state_dict'])
@@ -24,8 +24,11 @@ def load_model(model_path):
 
     return model
 
-model = load_model('weights\\ResNet_25.pt')
+# load from the path
+#model1 = load_model('weights\\ResNet_15.pt')
+model = load_model('weights\\ResNet_21.pt')
 
+# json file to get classes
 with open('int_to_class.json', 'r') as f:
     labels = json.load(f)
 species_names = labels.values()
@@ -89,11 +92,13 @@ if img_file:
 if select_image or img_file:
     if st.button("Predict"):
         if select_image:
-            result = eng.predict_img(image_path, model, labels)
+            result = eng.predict_image(image_path, model, labels)
         else:
             save_image_path = os.path.join("upload_images", img_file.name)
             image.save(save_image_path)
-            result = eng.predict_img(save_image_path, model, labels)
+            result = eng.predict_image(save_image_path, model, labels)
         st.success("Predicted bird species is: " + result)
         st.balloons()
+
+
 
