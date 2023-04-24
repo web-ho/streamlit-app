@@ -12,8 +12,9 @@ import torch.nn.functional as F
 import torchvision.transforms as T
 import torchvision.models as models
 from torch.utils.data import DataLoader
+from torchvision.datasets import ImageFolder
 
-from sklearn import metrics
+from PIL import Image
 
 from src.engine import Engine
 from src.data import BirdSpecies
@@ -26,15 +27,21 @@ def create_model(num_classes):
 
     # Replace the fully connected layer with a custom one
     model.fc = nn.Sequential(
-        nn.Linear(2048, 100),  
+        nn.Linear(2048, 1024),  
         nn.ReLU(inplace=True),
-        nn.Dropout(0.1),  # to mitigate overfitting
+        nn.Dropout(0.5),  # to mitigate overfitting
         nn.Linear(
-            100, num_classes
+            1024, num_classes
         ), 
     )
-
     return model
+
+# modified loader to load images in grayscale, default is RGB
+def pil_loader(path):
+    with open(path, "rb") as f:
+        img = Image.open(f).convert("RGB")
+        return img 
+    
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -52,7 +59,6 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    #!kaggle datasets download -d arjunbasandrai/25-indian-bird-species-with-226k-images
     
     Root_dir = args.data_path
     Dir_train = f'{Root_dir}\\train'
@@ -65,12 +71,13 @@ if __name__ == "__main__":
 
 
     train_transforms = T.Compose([
-            T.RandomHorizontalFlip(p=0.5),
-            T.RandomVerticalFlip(p=0.5),
-            T.Resize((224, 224)),
-            #T.CenterCrop(256),
-            T.ToTensor(),
-            ])
+        T.Resize((224, 224)),
+        T.RandomRotation(45),
+        T.RandomHorizontalFlip(),
+        T.RandomVerticalFlip(),
+        #T.CenterCrop(256),
+        T.ToTensor(),
+    ])
     
     
     valid_transforms= T.Compose([
@@ -79,8 +86,8 @@ if __name__ == "__main__":
             T.ToTensor(),
         ])
     
-    train_dataset = BirdSpecies(Dir_train, train_transforms)
-    valid_dataset = BirdSpecies(Dir_valid, valid_transforms)
+    train_dataset = ImageFolder(Dir_train, train_transforms, loader=pil_loader)
+    valid_dataset = ImageFolder(Dir_valid, valid_transforms, loader=pil_loader)
 
     train_dataloader = DataLoader(
         train_dataset,
@@ -97,7 +104,7 @@ if __name__ == "__main__":
         )
 
     criterion = nn.CrossEntropyLoss()
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.0001)
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.00001)
     #scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=15, gamma=0.6)
     eng = Engine(model, criterion, optimizer, device=args.device)
 
@@ -121,7 +128,7 @@ if __name__ == "__main__":
             T.ToTensor(),
         ])
 
-    test_dataset = BirdSpecies(Dir_test, test_transforms)
+    test_dataset = ImageFolder(Dir_train, test_transforms, loader=pil_loader)
     test_dataloader = DataLoader(
         test_dataset,
         batch_size=args.batch_size,
