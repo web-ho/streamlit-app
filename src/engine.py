@@ -133,9 +133,9 @@ class Engine:
             
         return images, true_labels, pred_labels
     
-    
+
 # funtion to use in the app.py 
-def predict_img(img_path, model, int_to_class):
+def predict_image(img_path, model, int_to_class):
 
     labels = {int(k): v for k, v in int_to_class.items()}
     # Load the image and apply transforms
