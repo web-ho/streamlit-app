@@ -2,7 +2,6 @@ import streamlit as st
 from PIL import Image
 import numpy as np
 import torch
-import cv2
 import json
 import os
 
