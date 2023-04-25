@@ -34,8 +34,6 @@ with open('int_to_class.json', 'r') as f:
 species_names = labels.values()
 
 
-st.set_option('server.showRunnerControls', False)
-
 st.set_page_config(
     page_title="What's that bird?",
     page_icon=":bird:",
