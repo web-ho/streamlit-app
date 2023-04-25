@@ -135,7 +135,7 @@ class Engine:
     
 
 # funtion to use in the app.py 
-def predict_image(image, model, int_to_class):
+def predict_image(image_path, model, int_to_class):
 
     labels = {int(k): v for k, v in int_to_class.items()}
     # Load the image and apply transforms
@@ -144,8 +144,8 @@ def predict_image(image, model, int_to_class):
         T.ToTensor(),
         #T.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     ])
-    #img = Image.open(img_path)
-    img = transform(image)
+    img = Image.open(image_path)
+    img = transform(img)
     img = img.unsqueeze(0)
 
     # Make prediction using the model

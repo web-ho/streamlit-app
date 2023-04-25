@@ -8,7 +8,8 @@ import os
 import src.engine as eng
 from main import create_model
 
-
+# st.cache_resource to keep memory usage in limit
+@st.cache_resource
 def load_model(model_path):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model = create_model(num_classes=25)
@@ -34,12 +35,12 @@ with open('int_to_class.json', 'r') as f:
 species_names = labels.values()
 
 
-st.set_page_config(
-    page_title="What's that bird?",
-    page_icon=":bird:",
-    #layout="wide",
-    initial_sidebar_state="expanded",
-)
+#st.set_page_config(
+ #   page_title="What's that bird?",
+  #  page_icon=":bird:",
+   # #layout="wide",
+    #initial_sidebar_state="expanded",)
+
 # display page text
 image_path = os.path.abspath("media/peacock1.jpg")
 image = Image.open(image_path)
@@ -94,11 +95,11 @@ if img_file:
 if select_image or img_file:
     if st.button("Predict"):
         if select_image:
-            result = eng.predict_image(image, model, labels)
+            result = eng.predict_image(image_path, model, labels)
         else:
             save_image_path = os.path.join("upload_images", img_file.name)
             image.save(save_image_path)
-            result = eng.predict_image(image, model, labels)
+            result = eng.predict_image(save_image_path, model, labels)
         st.success("Predicted bird species is: " + result)
         st.balloons()
 
