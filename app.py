@@ -10,12 +10,13 @@ from main import create_model
 
 
 def load_model(model_path):
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model = create_model(num_classes=25)
 
     criterion = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.00001)
 
-    check = torch.load(model_path)
+    check = torch.load(model_path, map_location=device)
     model.load_state_dict(check['model_state_dict'])
     optimizer.load_state_dict(check['optimizer_state_dict'])
     epoch = check['epoch']
