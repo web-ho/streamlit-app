@@ -49,7 +49,7 @@ if __name__ == "__main__":
         "--data_path", type=str, required=True
     )
     parser.add_argument(
-        "--device", type=str,
+        "--device", type=str, default='cpu'
     )
     parser.add_argument(
         "--epochs", type=int, default=1

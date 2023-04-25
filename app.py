@@ -41,7 +41,8 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 # display page text
-image = Image.open('media\\peacock1.jpg')
+image_path = os.path.abspath("media/peacock1.jpg")
+image = Image.open(image_path)
 st.title('Indian Bird Classification')
 Info = """
     You can select one image from the sibebar select option to predict the bird's species. 
@@ -65,10 +66,10 @@ st.markdown(
 
 # make a dict to allow users to select image
 image_dict = {
-    "Image 1": "image_data\\test\Brown-Headed Barbet\\ML77872441.jpg",
-    "Image 2": "image_data\\test\Hoopoe\\ML108410391.jpg",
-    "Image 3": "image_data\\test\Ruddy Shelduck\\ML206598971.jpg",
-    "Image 4": "image_data\\test\Jungle Babbler\\ML125506401.jpg",
+    "Image 1": os.path.abspath("image_data/test/Brown-Headed Barbet/ML77872441.jpg"),
+    "Image 2": os.path.abspath("image_data/test/Hoopoe/ML108410391.jpg"),
+    "Image 3": os.path.abspath("image_data/test/Ruddy Shelduck/ML206598971.jpg"),
+    "Image 4": os.path.abspath("image_data/test/Jungle Babbler/ML125506401.jpg")
 }
 select_image = st.sidebar.selectbox(
     "Select an image", [""]+list(image_dict.keys()))
