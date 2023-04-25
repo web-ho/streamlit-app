@@ -3,8 +3,6 @@ import torch
 import random
 import numpy as np
 from PIL import Image
-from sklearn.metrics import confusion_matrix
-from sklearn.metrics import ConfusionMatrixDisplay
 import matplotlib.pyplot as plt
 import torch.nn as nn
 import torchvision
@@ -104,17 +102,4 @@ def check_image_size(image_folder):
                     counter += 1
     return counter
 
-
-
-def plot_confusion_matrix(labels, pred_labels, classes):
-    
-    fig = plt.figure(figsize = (50, 50));
-    ax = fig.add_subplot(1, 1, 1);
-    cm = confusion_matrix(labels, pred_labels);
-    cm = ConfusionMatrixDisplay(cm, display_labels = classes);
-    cm.plot(values_format = 'd', cmap = 'Blues', ax = ax)
-    fig.delaxes(fig.axes[1]) #delete colorbar
-    plt.xticks(rotation = 90)
-    plt.xlabel('Predicted Label', fontsize = 50)
-    plt.ylabel('True Label', fontsize = 50)
 
