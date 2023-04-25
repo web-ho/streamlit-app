@@ -24,8 +24,8 @@ def load_model(model_path):
     return model
 
 # load from the path
-#model1 = load_model('weights\\ResNet_15.pt')
-model = load_model('weights\\ResNet_21.pt')
+model_path = os.path.abspath("weights/ResNet_21.pt")
+model = load_model(model_path)
 
 # json file to get classes
 with open('int_to_class.json', 'r') as f:
@@ -71,6 +71,7 @@ image_dict = {
 }
 select_image = st.sidebar.selectbox(
     "Select an image", [""]+list(image_dict.keys()))
+
 
 st.sidebar.write("### 25 Indian Bird Species this used are:")
 for name in species_names:
