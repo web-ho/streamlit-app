@@ -1,6 +1,7 @@
 import streamlit as st
 from PIL import Image
 import numpy as np
+import tempfile
 import torch
 import json
 import os
@@ -83,13 +84,13 @@ for name in species_names:
 if select_image:
     image_path = image_dict[select_image]
     image = Image.open(image_path)
-    st.image(image, caption=select_image)
+    st.image(image, caption=select_image)  
 
 # allow users to upload their own prefered image
 img_file = st.file_uploader("Choose an Image of Bird", type=["jpg", "png"])
 if img_file:
-    image = Image.open(img_file)
-    st.image(image, caption="Uploaded image")
+    img = Image.open(img_file)
+    st.image(img, caption="Uploaded image")   
 
 # Make prediction on selected or uploaded image
 if select_image or img_file:
