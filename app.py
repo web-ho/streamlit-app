@@ -13,7 +13,7 @@ from main import create_model
 
 # load from the path
 model_path = os.path.abspath("weights/quantized_ResNet_21.pt")
-model = load_model(model_path)
+model = torch.load(model_path)
 
 # json file to get classes
 with open('int_to_class.json', 'r') as f:
