@@ -98,8 +98,8 @@ if select_image or img_file:
         if select_image:
             result = eng.predict_image(image_path, model, labels)
         else:
-            save_image_path = os.path.join("upload_images", img_file.name)
-            image.save(save_image_path)
+            save_image_path = os.path.join("media", img_file.name)
+            img.save(save_image_path)
             result = eng.predict_image(save_image_path, model, labels)
         st.success("Predicted bird species is: " + result)
         st.balloons()
