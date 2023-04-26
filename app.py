@@ -9,25 +9,10 @@ import os
 import src.engine as eng
 from main import create_model
 
-# st.cache_resource to keep memory usage in limit
-@st.cache_resource
-def load_model(model_path):
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    model = create_model(num_classes=25)
 
-    criterion = torch.nn.CrossEntropyLoss()
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.00001)
-
-    check = torch.load(model_path, map_location=device)
-    model.load_state_dict(check['model_state_dict'])
-    optimizer.load_state_dict(check['optimizer_state_dict'])
-    epoch = check['epoch']
-    loss = check['best_loss']
-
-    return model
 
 # load from the path
-model_path = os.path.abspath("weights/ResNet_21.pt")
+model_path = os.path.abspath("weights/quantized_ResNet_21.pt")
 model = load_model(model_path)
 
 # json file to get classes
