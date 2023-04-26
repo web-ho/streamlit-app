@@ -53,11 +53,11 @@ st.markdown(
 
 # make a dict to allow users to select image
 image_dict = {
-    "Image 1": os.path.abspath("media\ML315345341.jpg"),
-    "Image 2": os.path.abspath("media\ML390859511.jpg"),
-    "Image 3": os.path.abspath("media\ML515331161.jpg"),
-    "Image 4": os.path.abspath("media\Indian_pitta_bd.jpg"),
-    "Image 5": os.path.abspath("media\kingfisher-1.jpg")
+    "Image 1": os.path.abspath("media/ML315345341.jpg"),
+    "Image 2": os.path.abspath("media/ML390859511.jpg"),
+    "Image 3": os.path.abspath("media/ML515331161.jpg"),
+    "Image 4": os.path.abspath("media/Indian_pitta_bd.jpg"),
+    "Image 5": os.path.abspath("media/kingfisher-1.jpg")
     }
 
 select_image = st.sidebar.selectbox(
