@@ -12,7 +12,7 @@ from main import create_model
 
 
 # load from the path
-model_path = os.path.abspath("weights/quantized_ResNet_21.pt")
+model_path = os.path.abspath("weights/Quantized_ResNet_21.pt")
 model = torch.load(model_path)
 
 # json file to get classes
