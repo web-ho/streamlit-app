@@ -1,7 +1,6 @@
-import os
 import torch
 
-from main import create_model
+from train import create_model
 
 
 
