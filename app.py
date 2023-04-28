@@ -7,8 +7,6 @@ import json
 import os
 
 import src.engine as eng
-from main import create_model
-
 
 
 # load from the path
@@ -30,23 +28,30 @@ species_names = labels.values()
 # display page text
 image_path = os.path.abspath("media/peacock1.jpg")
 image = Image.open(image_path)
-st.title('Indian Bird Classification')
+st.title('Know The Bird')
 Info = """
-    You can select one image from the sibebar select option to predict the bird's species. 
-    You can also upload any image from your system to classify the species of the bird.
+    India has more than 1250 bird species. This web app classifies only 25 species.
+    More species will be added.
 
-    We will be updating more features like fun facts and other utilities like map and migrations strategy.
     """
 st.write(Info)
-st.image(image, caption='The way of Jungle')
+st.image(image, caption='A Peacock')
+
+Info = """
+    You can select one image from the sibebar select option to predict the bird's species. 
+    You can also upload any image from your system to know the species of the bird.
+    """
+st.write(Info)
 
 st.markdown(
     """
-    <h4 style="text-align: left; color: violet;">
+    <h4 style="text-align: left; color: black;">
         <span style="font-size: larger;">🐦</span>
         [Once the image is selected click "Predict" and you will have the answer]
         <span style="font-size: larger;">🐦</span>
     </h4>
+    make sure to unselect the image before using either of the options
+    
     """,
     unsafe_allow_html=True
 )
@@ -64,7 +69,7 @@ select_image = st.sidebar.selectbox(
     "Select an image", [""]+list(image_dict.keys()))
 
 
-st.sidebar.write("### 25 Indian Bird Species this used are:")
+st.sidebar.write("### 25 Indian Bird Species used are:")
 for name in species_names:
     st.sidebar.write(f"-{name}")
 
@@ -88,7 +93,7 @@ if select_image or img_file:
             save_image_path = os.path.join("media", img_file.name)
             img.save(save_image_path)
             result = eng.predict_image(save_image_path, model, labels)
-        st.success("Predicted bird species is: " + result)
+        st.success("Predicted bird is: " + result)
         st.balloons()
 
 
