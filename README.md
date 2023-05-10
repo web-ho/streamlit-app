@@ -7,9 +7,12 @@ You can use the app here-
     </button>
 </a>
 
-This project classifies 25 Indian Bird Species found throughout India. For now we are only classifying images, later we will extend this project to work in real-time and also give important information related to the species. And other cool facts.
+This project classifies 25 Indian Bird Species found throughout India. For now I am only classifying images, later we will extend this project to work in real-time and also give important information related to the species. And other cool facts.
 
-We will also add more indian bird species.
+I will also add more indian bird species.
+
+I have used accuracy as a metric to track and improve model performance, which I have realised should not be your ideal choice. Rather, use precision-recall.
+
 
 The dataset used for this project can be found at-
 <a href="https://www.kaggle.com/datasets/arjunbasandrai/25-indian-bird-species-with-226k-images" target="_blank">
@@ -21,3 +24,13 @@ The dataset used for this project can be found at-
 Due to LFS bandwidth limit. I needed to reduce model size, which may have resulted in a decrease in accuracy. 
 I used pytorch's method of model quantization. This has to be applied post-training. There is other method of pruning too, it is little complex
 to apply. 
+
+
+
+I have some ideas to extend this project beyond classification. 
+
+- Introduce a pipeline to label images, if the user chooses so.
+
+- Use the SAM model for bird segmentation.
+
+- Also, use OpenAI's API to get info about the recognised bird species.
